@@ -1,4 +1,4 @@
-from django import forms.ModelF
+from django.forms import ModelForm
 from .models import MovieInfo
 
 class MovieForm(ModelForm):

@@ -3,18 +3,36 @@
 {% block content %}
 <h1>List Movies </h1>
 <table>
-    <tr><th>title</th><th>Description</th><th>Year</th><th>edit/delete</th></tr>
-{% for movie_obj in movies%}
-
-<tr>
-<td>{{movie_obj.title | upper}}</td>
-<td><p>Summary: {{movie_obj.description | default:'No data available'}}</p>
-</td>
-<td><h4>Year: {{movie_obj.year}}</h4></td>
-<td><a href="{% url 'edit' movie_obj.id %}">edit/</a><a href="{% url 'delete' movie_obj.id %}">delete</a></td>
-
-{% endfor %}
-</tr>
+    <tr>
+        <th>title</th>
+        <th>Year</th>
+        <th>Poster</th>
+        <th>Description</th>
+        <th>edit/delete</th>
+    </tr>
+    
+    {% for movie_obj in movies %}
+    <tr>
+        <td>{{movie_obj.title | upper}}</td>
+        <td>
+            <h4>Year: {{movie_obj.year}}</h4>
+        </td>
+        <!-- Added the Poster column data here -->
+        <td>
+            {% if movie_obj.poster %}
+                <img src="{{ movie_obj.poster.url }}" alt="{{ movie_obj.title }}" style="max-width: 100px; height: auto;">
+            {% else %}
+                <span>No Poster</span>
+            {% endif %}
+        </td>
+        <td>
+            <p>Summary: {{movie_obj.description | default:'No data available'}}</p>
+        </td>
+        <td>
+            <a href="{% url 'edit' movie_obj.id %}">edit/</a>
+            <a href="{% url 'delete' movie_obj.id %}">delete</a>
+        </td>
+    </tr>
+    {% endfor %}
 </table>
-
 {% endblock content %}
